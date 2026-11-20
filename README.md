@@ -21,6 +21,9 @@ GitHub repo ──► HealthCheck-Freestyle : checkout → ./health-check.sh
 | `requirements.txt` | Flask 2.1.2 and Werkzeug 2.1.2 |
 | `test_app.py` | Unit tests for both routes |
 | `Jenkinsfile` | Pipeline: **Build** (venv + pip install), **Test** (unittest), **Deploy** (copy to `flask-app-deploy/`) |
+| `jenkins/Dockerfile` | Jenkins image with Python and the Git and Pipeline plugins |
+| `jenkins/freestyle-config.xml` | `HealthCheck-Freestyle` job: Git checkout, Execute shell `./health-check.sh` |
+| `jenkins/pipeline-config.xml` | `Flask-Pipeline` job: Pipeline script from SCM, script path `Jenkinsfile` |
 
 ## Run locally
 
@@ -35,18 +38,10 @@ venv/bin/python app.py        # http://localhost:5000
 
 ## Jenkins setup
 
-**1. Jenkins with Python.** Save this as `Dockerfile` in an empty folder:
-
-```dockerfile
-FROM jenkins/jenkins:lts
-USER root
-RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && rm -rf /var/lib/apt/lists/*
-USER jenkins
-RUN jenkins-plugin-cli --plugins git workflow-aggregator pipeline-graph-view
-```
+**1. Jenkins with Python.** [`jenkins/Dockerfile`](jenkins/Dockerfile) adds Python, venv, and the Git and Pipeline plugins to the official Jenkins image.
 
 ```bash
-docker build -t jenkins-python .
+docker build -t jenkins-python jenkins/
 docker run -d --name jenkins --restart unless-stopped -p 8080:8080 -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home jenkins-python
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
@@ -61,6 +56,12 @@ Open http://localhost:8080 and log in as `admin` with the password that last com
 **3. Pipeline job.** New Item → `Flask-Pipeline` → Pipeline
 - Definition: *Pipeline script from SCM*, Git, same URL, branch `*/main`
 - Script path: `Jenkinsfile`
+
+Or create both jobs from the saved configs (`jcli` is defined under [Demo commands](#demo-commands)):
+```bash
+jcli create-job HealthCheck-Freestyle < jenkins/freestyle-config.xml
+jcli create-job Flask-Pipeline < jenkins/pipeline-config.xml
+```
 
 **4. Run them.** Click **Build Now** on each job, then open **Console Output**.
 
