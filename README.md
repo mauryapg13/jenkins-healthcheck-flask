@@ -21,7 +21,7 @@ GitHub repo ──► HealthCheck-Freestyle : checkout → ./health-check.sh
 | `requirements.txt` | Flask 2.1.2 and Werkzeug 2.1.2 |
 | `test_app.py` | Unit tests for both routes |
 | `Jenkinsfile` | Pipeline: **Build** (venv + pip install), **Test** (unittest), **Deploy** (copy to `flask-app-deploy/`) |
-| `jenkins/Dockerfile` | Jenkins image with Python and the Git and Pipeline plugins |
+| `jenkins/Dockerfile` | Jenkins image with Python and the Git, Pipeline and Stage View plugins |
 | `jenkins/freestyle-config.xml` | `HealthCheck-Freestyle` job: Git checkout, Execute shell `./health-check.sh` |
 | `jenkins/pipeline-config.xml` | `Flask-Pipeline` job: Pipeline script from SCM, script path `Jenkinsfile` |
 

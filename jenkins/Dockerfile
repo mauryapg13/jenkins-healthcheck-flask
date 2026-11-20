@@ -2,4 +2,4 @@ FROM jenkins/jenkins:lts
 USER root
 RUN apt-get update && apt-get install -y python3 python3-pip python3-venv && rm -rf /var/lib/apt/lists/*
 USER jenkins
-RUN jenkins-plugin-cli --plugins git workflow-aggregator pipeline-graph-view
+RUN jenkins-plugin-cli --plugins git workflow-aggregator pipeline-graph-view pipeline-stage-view
