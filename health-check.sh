@@ -2,7 +2,7 @@
 # Exits 1 (build FAILED) if a check fails, 0 (build SUCCESS) if all pass.
 URL=${1:-http://localhost:8080/login}
 
-echo "===== Health Check v2 ====="
+echo "===== Health Check v3 ====="
 echo "Host: $(hostname)"
 echo "Date: $(date)"
 

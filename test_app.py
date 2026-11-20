@@ -10,7 +10,7 @@ class TestApp(unittest.TestCase):
         response = self.client.get("/")
         print(response.data.decode("utf-8"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data.decode("utf-8"), "Hello from Flask - Release v2")
+        self.assertEqual(response.data.decode("utf-8"), "Hello from Flask - Release v3")
 
     def test_health(self):
         response = self.client.get("/health")
