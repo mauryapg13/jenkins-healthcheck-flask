@@ -17,6 +17,11 @@ class TestApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data.decode("utf-8"), "OK")
 
+    def test_exam(self):
+        response = self.client.get("/exam")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.decode("utf-8"), "This is an exam endpoint")
+
 
 if __name__ == "__main__":
     unittest.main()
