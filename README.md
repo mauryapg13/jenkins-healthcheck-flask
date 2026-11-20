@@ -16,7 +16,7 @@ GitHub repo ──► HealthCheck-Freestyle : checkout → ./health-check.sh
 
 | File | What it does |
 |---|---|
-| `health-check.sh` | Prints the host, date, uptime and disk usage, then `Status: HEALTHY` |
+| `health-check.sh` | Checks that disk use is below 90% and that a service returns HTTP 200 (Jenkins by default, or a URL passed as the first argument). Exits 1 if either check fails, which fails the build. |
 | `app.py` | Flask app: `/` returns a release message, `/health` returns `OK` |
 | `requirements.txt` | Flask 2.1.2 and Werkzeug 2.1.2 |
 | `test_app.py` | Unit tests for both routes |
