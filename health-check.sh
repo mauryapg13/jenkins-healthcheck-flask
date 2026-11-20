@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "===== Health Check ====="
+echo "===== Health Check v2 ====="
 echo "Host: $(hostname)"
 echo "Date: $(date)"
 echo "Uptime: $(uptime)"
